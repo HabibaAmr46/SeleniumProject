@@ -1,0 +1,1 @@
+del allure-results\\*.json && del allure-results\\*attachment

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Failed suite [Suite2]">
+  <listeners>
+    <listener class-name="Base.Listeners"/>
+  </listeners>
+  <test thread-count="5" name="Test(failed)">
+    <classes>
+      <class name="TestCases.HomePageTest">
+        <methods>
+          <include name="BreadCrumb"/>
+          <include name="searchByName"/>
+          <include name="SetUpDriver"/>
+          <include name="sortByName"/>
+          <include name="tearDown"/>
+          <include name="ChangeCurrency"/>
+          <include name="SetUp"/>
+        </methods>
+      </class> <!-- TestCases.HomePageTest -->
+    </classes>
+  </test> <!-- Test(failed) -->
+</suite> <!-- Failed suite [Suite2] -->

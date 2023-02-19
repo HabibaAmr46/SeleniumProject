@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<suite name="Suite2">
+<listeners>
+<listener class-name="Base.Listeners"></listener>
+</listeners>
+
+  <test thread-count="5" name="Test">
+    <classes>
+    
+      <class name="TestCases.HomePageTest"/>
+            
+    </classes>
+  </test> <!-- Test -->
+</suite> <!-- Suite -->
