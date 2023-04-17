@@ -82,7 +82,7 @@ public class ProductPage extends PageBase{
 	
 	@Step("Change the delivery date then add it to the shopping cart")
 	public void AddProductToCart() throws InterruptedException {
-		Thread.sleep(5000);
+		scrollElement(CalenderButton);
 		driver.findElement(CalenderButton).click();
 		driver.findElement(newday).click();
 		driver.findElement(AddToCartButton).click();

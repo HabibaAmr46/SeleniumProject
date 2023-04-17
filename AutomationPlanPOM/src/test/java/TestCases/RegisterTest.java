@@ -11,8 +11,9 @@ import org.testng.annotations.*;
 
 import Base.TestBase;
 import Pages.RegisterPage;
-import io.qameta.allure.Allure;
+import io.qameta.*;
 import utils.ExcelReader;
+import io.qameta.allure.Allure;
 @Listeners({ Base.Listeners.class })
 public class RegisterTest extends TestBase {
 	public RegisterTest() throws IOException {

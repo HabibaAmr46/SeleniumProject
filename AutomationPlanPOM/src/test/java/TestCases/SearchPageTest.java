@@ -4,7 +4,8 @@ import java.io.IOException;
 import java.time.Duration;
 import java.util.Properties;
 
-import org.junit.Assert;
+import org.testng.Assert;
+
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.*;
 

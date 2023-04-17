@@ -67,7 +67,9 @@ public class TestBase {
 	@AfterSuite
 	public void runReport() throws IOException
 	{
-		String command2 ="allure.bat serve "+prop.getProperty("Path");
+		//String command2 ="allure.bat serve "+prop.getProperty("Path");
+		String command2 ="allure.bat serve "+System.getProperty("user.dir")+"\\allure-results";
+		
 		runWindowsCommand(command2);
 	}
 	
@@ -79,6 +81,7 @@ public class TestBase {
 		
 		runWindowsCommand(command);
 	}
+	
 	
 	
 	public static void runWindowsCommand(String command) {

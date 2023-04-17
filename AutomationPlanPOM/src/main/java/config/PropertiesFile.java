@@ -11,7 +11,8 @@ public class PropertiesFile {
 	public static Properties getProperties() throws IOException
 	{
 		Properties prop=new Properties();
-		InputStream input= new FileInputStream("C:\\Users\\hmohammed25\\OneDrive - DXC Production\\Documents\\ja\\AutomationPlanPOM\\src\\main\\java\\config\\config.properties");
+		String path=System.getProperty("user.dir");
+		InputStream input= new FileInputStream(path+"\\src\\main\\java\\config\\config.properties");
 		prop.load(input);
 		return prop;
 		
