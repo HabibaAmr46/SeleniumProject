@@ -18,7 +18,7 @@ public class ExcelReader {
 			Object[][] data = null;
 			try {
 				DataFormatter dataformat=new DataFormatter();
-				FileInputStream fis = new FileInputStream("C:\\Users\\hmohammed25\\OneDrive - DXC Production\\Documents\\ja\\AutomationPlanPOM\\Excel\\register.xlsx");
+				FileInputStream fis = new FileInputStream(System.getProperty("user.dir")+"\\Excel\\register.xlsx");
 				XSSFWorkbook workbook = new XSSFWorkbook(fis);
 				XSSFSheet sheet = workbook.getSheet("Sheet1");
 				XSSFRow row = sheet.getRow(0);
@@ -46,7 +46,7 @@ public class ExcelReader {
 			Object[][] data = null;
 			try {
 				DataFormatter dataformat=new DataFormatter();
-				FileInputStream fis = new FileInputStream("C:\\Users\\hmohammed25\\OneDrive - DXC Production\\Documents\\ja\\AutomationPlanPOM\\Excel\\register.xlsx");
+				FileInputStream fis = new FileInputStream(System.getProperty("user.dir")+"\\Excel\\register.xlsx");
 				XSSFWorkbook workbook = new XSSFWorkbook(fis);
 				XSSFSheet sheet = workbook.getSheet("Sheet2");
 				XSSFRow row = sheet.getRow(0);

@@ -36,7 +36,7 @@ public class ProductPage extends PageBase{
 	
 	public void writeDataToExcel() throws IOException
 	{
-		FileInputStream fis = new FileInputStream("C:\\Users\\hmohammed25\\OneDrive - DXC Production\\Documents\\ja\\AutomationPlanPOM\\Excel\\data.xlsx");
+		FileInputStream fis = new FileInputStream(System.getProperty("user.dir")+"\\Excel\\data.xlsx");
 		XSSFWorkbook workbook = new XSSFWorkbook(fis);
 		XSSFSheet sheet = workbook.getSheet("Sheet1");
 		rowNum++;
@@ -74,7 +74,7 @@ public class ProductPage extends PageBase{
 		
 		
 		
-		FileOutputStream fio=new FileOutputStream("C:\\Users\\hmohammed25\\OneDrive - DXC Production\\Documents\\ja\\AutomationPlanPOM\\Excel\\data.xlsx");
+		FileOutputStream fio=new FileOutputStream(System.getProperty("user.dir")+"\\Excel\\data.xlsx");
 		workbook.write(fio);
 		workbook.close();
 	
@@ -82,7 +82,7 @@ public class ProductPage extends PageBase{
 	
 	@Step("Change the delivery date then add it to the shopping cart")
 	public void AddProductToCart() throws InterruptedException {
-		scrollElement(CalenderButton);
+		scrollElement(driver.findElement(CalenderButton));
 		driver.findElement(CalenderButton).click();
 		driver.findElement(newday).click();
 		driver.findElement(AddToCartButton).click();

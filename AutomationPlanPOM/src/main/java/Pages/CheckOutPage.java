@@ -87,16 +87,16 @@ public class CheckOutPage extends PageBase{
 		driver.findElement(postalCode).sendKeys(postal);
 		Thread.sleep(2000);
 		Select country=new Select(driver.findElement(countryShipping));
-		scrollElement(country);
 		
 		country.selectByVisibleText(coun);
 		Thread.sleep(2000);
 		
+		
 		Select state = new Select(driver.findElement(stateShipping));
-		scrollElement(state);
+		scrollElement(driver.findElement(stateShipping));
 		
 		state.selectByVisibleText(stat);
-		scrollElement(continueShipping);
+		scrollElement(driver.findElement(continueShipping));
 		driver.findElement(continueShipping).click();
 		
 	}

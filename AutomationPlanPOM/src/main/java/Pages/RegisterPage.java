@@ -64,8 +64,8 @@ public class RegisterPage extends PageBase {
 	{
 		driver.findElement(accountLink).click();
 		driver.findElement(registrationLink).click();
-		driver.findElement(Details_Button).click();
-		driver.findElement(Proceed_Link).click();
+		//driver.findElement(Details_Button).click();
+		//driver.findElement(Proceed_Link).click();
 		
 	}
 	
