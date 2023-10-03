@@ -4,7 +4,6 @@
   <artifactId>AutomationPlanPOM</artifactId>
   <version>0.0.1-SNAPSHOT</version>
    
-  
   <dependencies>
   	<!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-surefire-plugin -->
 <dependency>
@@ -86,6 +85,11 @@
 	
 	</dependencies>
 	<properties>
+	
+ <maven.compiler.source>1.8</maven.compiler.source>
+ <maven.compiler.target>1.8</maven.compiler.target>
+
+  
 	<aspectj.version>1.9.9.1</aspectj.version>
 	<maven-surefire-plugin-version>3.0.0-M7</maven-surefire-plugin-version>
 </properties>
