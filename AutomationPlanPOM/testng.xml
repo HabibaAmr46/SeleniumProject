@@ -9,7 +9,13 @@
     <classes>
     
        
-        <class name="TestCases.RegisterTest"/>
+        <class name="TestCases.LoginPageTest">
+        	 <methods>
+               <include name="validLogin" />
+            </methods>
+        
+        
+        </class>
        
       
     </classes>

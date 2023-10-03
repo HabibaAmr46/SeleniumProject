@@ -35,7 +35,7 @@ public class TestBase {
 	public void SetUpDriver()
 	{
 		//System.setProperty("webdriver.chrome.driver", "./drivers/geckodriver/chromedriver.exe");
-		WebDriverManager.chromedriver().setup();
+		//WebDriverManager.chromedriver().setup();
 		driver = new ChromeDriver();
 		driver.manage().window().maximize();
 		driver.get(prop.getProperty("url"));
