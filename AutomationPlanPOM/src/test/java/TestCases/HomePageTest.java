@@ -43,8 +43,8 @@ public class HomePageTest extends TestBase{
 		Allure.step("Ensure that all products contains $ as a currency");
 		Assert.assertTrue(homePage.CheckIFProductsContainsCurrency("$"));
 		homePage.ClickEuro();
-		Allure.step("Ensure that all products contains â‚¬ as a currency");
-		Assert.assertTrue(homePage.CheckIFProductsContainsCurrency("â‚¬"));
+		Allure.step("Ensure that all products contains € as a currency");
+		Assert.assertTrue(homePage.CheckIFProductsContainsCurrency("€"));
 		homePage.Logout();
 	}
 	@Test
