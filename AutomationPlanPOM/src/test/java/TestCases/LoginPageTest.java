@@ -26,9 +26,9 @@ LoginPage loginPage;
 	public void validLogin() throws IOException
 	{
 		
-		loginPage=new LoginPage(driver);
-		loginPage.OpenLoginPage();
-		loginPage.login(prop.getProperty("validLoginEmail"), prop.getProperty("validLoginPassword"));
+		new LoginPage(driver)
+			.OpenLoginPage()
+			.login(prop.getProperty("validLoginEmail"), prop.getProperty("validLoginPassword"));
 		Assert.assertTrue(driver.getTitle().contains("My Account"));
 	}
 	
@@ -36,10 +36,11 @@ LoginPage loginPage;
 	@Test()
 	public void invalidLogin()
 	{	
-		loginPage=new LoginPage(driver);
-		loginPage.OpenLoginPage();
-		loginPage.login(prop.getProperty("validLoginEmail"), prop.getProperty("invalidLoginPassword"));
-		Assert.assertTrue(driver.findElement(loginPage.errorMessage).isDisplayed());
+		boolean errorDisplayed=new LoginPage(driver)
+			.OpenLoginPage()
+			.login(prop.getProperty("validLoginEmail"), prop.getProperty("invalidLoginPassword"))
+			.checkifErrorMessageIsDisplayed();
+		Assert.assertTrue(errorDisplayed);
 		Assert.assertTrue(driver.getTitle().contains("Account Login"));
 	}
 	

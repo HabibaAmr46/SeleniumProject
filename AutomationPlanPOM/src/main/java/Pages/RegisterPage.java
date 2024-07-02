@@ -38,16 +38,18 @@ public class RegisterPage extends PageBase {
 	By agreementCheckBox=By.name("agree");
 	
 	By continueButton= By.xpath("//input[@type='submit']");
+	By text=By.id("content");
 	
-	By logout= By.linkText("logout");
+	By logout= By.linkText("Logout");
 
 	By Details_Button=By.id("details-button");
 	
 	By Proceed_Link=By.id("proceed-link");
 	@Step("Open Account Menu")
-	public void OpenAccountLink()
+	public RegisterPage OpenAccountLink()
 	{
-		driver.findElement(accountLink).click();
+		clickElement(accountLink);
+		return this;
 	}
 	@Step("LogOut")
 	public void LogOut()
@@ -60,26 +62,29 @@ public class RegisterPage extends PageBase {
 	}
 	
 	@Step("Open Registration Page")
-	public void openRegistrationPage()
+	public RegisterPage openRegistrationPage()
 	{
-		driver.findElement(accountLink).click();
-		driver.findElement(registrationLink).click();
-		//driver.findElement(Details_Button).click();
-		//driver.findElement(Proceed_Link).click();
+		
+		clickElement(accountLink);
+		clickElement(registrationLink);
+		return this;
 		
 	}
 	
 	@Step("Fill the values: {0}, {1},{2},{3},{4},{5}")
-	public void register(String FN,String LN,String em,String telephone2,String pass,String confirmPass)
+	public RegisterPage register(String FN,String LN,String em,String telephone2,String pass,String confirmPass)
 	{
-		driver.findElement(firstName).sendKeys(FN);
-		driver.findElement(lastName).sendKeys(LN);
-		driver.findElement(email).sendKeys(em);
-		driver.findElement(telephone).sendKeys(telephone2);
-		driver.findElement(password).sendKeys(pass);
-		driver.findElement(confirmPassword).sendKeys(confirmPass);
-		driver.findElement(agreementCheckBox).click();
-		driver.findElement(continueButton).click();
+		
+		setText(firstName, FN);
+		setText(lastName, LN);
+		setText(email, em+System.currentTimeMillis());
+		setText(telephone,telephone2);
+		setText(password, pass);
+		setText(confirmPassword, confirmPass);
+		clickElement(agreementCheckBox);
+		clickElement(continueButton);
+		return this;
+		
 		
 	}
 	
@@ -88,17 +93,28 @@ public class RegisterPage extends PageBase {
 	{
 		
 		List<WebElement> errorTexts=driver.findElements(By.cssSelector("div.text-danger"));
-		/*
-		for(WebElement errorText:errorTexts)
-		{
-			if(errorText.getText().contains(expected))
-				return true;
-		}
-		
-		return false;
-		*/
-		
 		return errorTexts.stream().map(e-> e.getText()).filter(e->e.contains(expected)).count()==1;
+		
+	}
+	
+	@Step("Get the message")
+	public String getTheMessage()
+	{
+		return getText(text);
+	}
+	
+	@Step("Click on Log Out Button")
+	public RegisterPage clickOnLogOut()
+	{
+		clickElement(logout);
+		return this;	
+	}
+	
+	@Step("Check Log Out button is displayed")
+	public boolean logOutButtonIsDisplayed()
+	{
+		
+		return isDisplayed(logout);
 		
 	}
 	

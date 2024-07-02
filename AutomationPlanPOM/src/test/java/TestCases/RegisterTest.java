@@ -44,20 +44,24 @@ public class RegisterTest extends TestBase {
 	@Test(dataProvider = "excelData2")
 	public void ValidRegister(String firstName,String LastName,String email,String telephone,String password,String confirmPassword)
 	{
-		registerPage=new RegisterPage(driver);
-		registerPage.openRegistrationPage();
-
-		registerPage.register(firstName,LastName,email,telephone,password,confirmPassword);
+		String actual=new RegisterPage(driver)
+					.openRegistrationPage()
+					.register(firstName,LastName,email,telephone,password,confirmPassword)
+					.getTheMessage();
+					
 		String expected="Your new account has been successfully created!";
-		String actual=driver.findElement(By.id("content")).getText();
+		
 		Allure.step("Assert 'New Account Created' Message is displayed");
 		Assert.assertTrue(actual.contains(expected));
 	
-		registerPage.OpenAccountLink();
-		Allure.step("Assert LogOut button is displayed");
-		Assert.assertTrue(driver.findElement(LogOutButton).isDisplayed());
+		boolean check=new RegisterPage(driver)
+			.OpenAccountLink()
+			.logOutButtonIsDisplayed();
+		Assert.assertTrue(check);
 		
-		driver.findElement(LogOutButton).click();
+		new RegisterPage(driver)
+			.clickOnLogOut();
+		
 	}
 	
 	

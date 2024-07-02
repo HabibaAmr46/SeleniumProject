@@ -18,24 +18,31 @@ import io.qameta.allure.Step;
 	By email=By.id("input-email");
 	By password=By.id("input-password");
 	By loginButton=By.xpath("//input[@value='Login']");
-	public By errorMessage=By.xpath("//div[contains(@class,'alert')]");
+	By errorMessage=By.xpath("//div[contains(@class,'alert')]");
 	
 	
-	public void OpenLoginPage()
+	public LoginPage OpenLoginPage()
 	{
-		driver.findElement(accountLink).click();
-		driver.findElement(loginLink).click();
-		/*
-		driver.findElement(Details_Button).click();
-		driver.findElement(Proceed_Link).click();
-		*/
+		
+		
+		clickElement(accountLink);
+		clickElement(loginLink);
+		return this;
 	}
 	@Step("User Login with username: {0} and password :{1}")
-	public void login(String em,String pass)
+	public LoginPage login(String em,String pass)
 	{
-		driver.findElement(email).sendKeys(em);
-		driver.findElement(password).sendKeys(pass);
-		driver.findElement(loginButton).click();
+		setText(email, em);
+		setText(password, pass);
+		clickElement(loginButton);
+		return this;
+	}
+	
+	@Step("Check if the error message is displayed")
+	public boolean checkifErrorMessageIsDisplayed()
+	{
+		 
+		return isDisplayed(errorMessage);
 	}
 	
 
