@@ -70,10 +70,9 @@ public class RegisterTest extends TestBase {
 	@Test(dataProvider="excelData")
 	public void invalidRegistration(String firstName,String LastName,String email,String telephone,String password,String confirmPassword)
 	{
-		registerPage=new RegisterPage(driver);
-		registerPage.openRegistrationPage();
-		
-		registerPage.register(firstName,LastName,email,telephone,password,confirmPassword);
+		registerPage=new RegisterPage(driver)
+						.openRegistrationPage()
+						.register(firstName,LastName,email,telephone,password,confirmPassword);
 		if(firstName.equals(""))
 		{
 		
