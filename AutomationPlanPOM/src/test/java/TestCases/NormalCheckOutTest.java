@@ -34,19 +34,19 @@ public class NormalCheckOutTest extends TestBase{
 	@Test
 	public void normalCheckOut() throws InterruptedException
 	{
-		loginPage=new LoginPage(driver);
-		loginPage.OpenLoginPage();
-		loginPage.login("Bi@gmail.com","test123");
+		loginPage=new LoginPage(driver)
+				.OpenLoginPage()
+				.login("Bi@gmail.com","test123");
 		
-		homePage=new HomePage(driver);
-		homePage.ShowAllMP3();
-		homePage.addIPODToCart();
+		homePage=new HomePage(driver)
+				.ShowAllMP3()
+				.addIPODToCart();
 		
-		wait.until(ExpectedConditions.visibilityOfElementLocated(homePage.successAddToCartMessage));
-		Assert.assertTrue(driver.findElement(homePage.successAddToCartMessage).isDisplayed());
+		Assert.assertTrue(homePage.checkAddToCartMessageIsDisplayed());
 		
 		String IPODName=prop.getProperty("IPODName");
 		String IPODPrice=prop.getProperty("IPODPrice");
+		
 		Assert.assertTrue(homePage.CheckIFProductExistsInSubMenu(IPODName));
 		homePage.ClickViewCartSubMenu();
 
@@ -57,24 +57,22 @@ public class NormalCheckOutTest extends TestBase{
 		Thread.sleep(2000);
 		shoppingCartPage.checkOut();
 		
-		checkoutPage=new CheckOutPage(driver);
-		wait.until(ExpectedConditions.elementToBeClickable(checkoutPage.newPaymentAdressButton));
+		checkoutPage=new CheckOutPage(driver)		
+		.fillPaymentDetails("test", "test", "test", "Cairo", "Egypt", "Al Jizah")
+		.fillShippingDetails("test", "test", "test", "Cairo", "12345","Egypt", "Al Jizah")
+		.addComment("add comment")
+		.proceedPaymentMethod();
 		
-		checkoutPage.fillPaymentDetails("test", "test", "test", "Cairo", "Egypt", "Al Jizah");
-		checkoutPage.fillShippingDetails("test", "test", "test", "Cairo", "12345","Egypt", "Al Jizah");
-		checkoutPage.addComment("add comment");
-		checkoutPage.proceedPaymentMethod();
 		Allure.step("Assert Shopping Cart total equals CheckOut Subtotal");
 		Assert.assertEquals(shoppingCartTotal, checkoutPage.getCheckOutSubTotal());
 		Allure.step("Assert Actual CheckOut  total equals Expected CheckOut total");
 		Assert.assertEquals(checkoutPage.getCheckOutTotal(), checkoutPage.getExpectedCheckOutTotal());
 		checkoutPage.confirmOrder();
-		wait.until(ExpectedConditions.visibilityOfElementLocated(homePage.confirmOrderResult));
-		Thread.sleep(2000);
 		
-		Assert.assertTrue(driver.findElement(homePage.confirmOrderResult).getText().contains(prop.getProperty("SucessOrderCheckOutMessage")));
+		
+		Assert.assertTrue(homePage.checkconfirmOrderResultMessageContainstext(prop.getProperty("SucessOrderCheckOutMessage")));
 		Allure.step("Assert No element in the cart");
-		Assert.assertTrue(driver.findElement(homePage.itemsSubMenuButton).getText().contains(prop.getProperty("NoElementInShoppingCartSubMenu")));
+		Assert.assertTrue(homePage.checkitemsSubMenuMessageContainstext(prop.getProperty("NoElementInShoppingCartSubMenu")));
 		
 		homePage.Logout();
 		

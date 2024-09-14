@@ -55,14 +55,14 @@ public class CheckOutPage extends PageBase{
 	By cashOnDelivery=By.xpath("(//input[@name='payment_method'])[2]");
 	
 	@Step("Fill the payment details")
-	public void fillPaymentDetails(String FN,String LN,String adress,String city,String coun,String stat) throws InterruptedException
+	public CheckOutPage fillPaymentDetails(String FN,String LN,String adress,String city,String coun,String stat) throws InterruptedException
 	{
 		Thread.sleep(3000);
-		driver.findElement(newPaymentAdressButton).click();
-		driver.findElement(firstNamePayment).sendKeys(FN);
-		driver.findElement(lastNamePayment).sendKeys(LN);
-		driver.findElement(adressPayment).sendKeys(adress);
-		driver.findElement(cityPayment).sendKeys(city);
+		clickElement(newPaymentAdressButton);
+		setText(firstNamePayment, FN);
+		setText(lastNamePayment, LN);
+		setText(adressPayment, adress);
+		setText(cityPayment, city);
 		wait.until(ExpectedConditions.elementToBeClickable(countryPayment));
 		Select country=new Select(driver.findElement(countryPayment));
 		country.selectByVisibleText(coun);
@@ -71,20 +71,22 @@ public class CheckOutPage extends PageBase{
 		state.selectByVisibleText(stat);
 		Thread.sleep(2000);
 
-		wait.until(ExpectedConditions.elementToBeClickable(continuePayment));
-		driver.findElement(continuePayment).click();
+		clickElement(continuePayment);
+		
+		return this;
 	}
 	
 	@Step("Fill Shipping Details")
-	public void fillShippingDetails(String FN,String LN,String adress,String city,String postal,String coun,String stat) throws InterruptedException
+	public CheckOutPage fillShippingDetails(String FN,String LN,String adress,String city,String postal,String coun,String stat) throws InterruptedException
 	{
 		Thread.sleep(3000);
-		driver.findElement(newShippingAdressButton).click();
-		driver.findElement(firstNameShipping).sendKeys(FN);
-		driver.findElement(lastNameShipping).sendKeys(LN);
-		driver.findElement(adressShipping).sendKeys(adress);
-		driver.findElement(cityShipping).sendKeys(city);
-		driver.findElement(postalCode).sendKeys(postal);
+		
+		clickElement(newShippingAdressButton);
+		setText(firstNameShipping, FN);
+		setText(lastNameShipping,LN);
+		setText(adressShipping, adress);
+		setText(cityShipping, city);
+		setText(postalCode, postal);
 		Thread.sleep(2000);
 		Select country=new Select(driver.findElement(countryShipping));
 		
@@ -94,18 +96,20 @@ public class CheckOutPage extends PageBase{
 		
 		Select state = new Select(driver.findElement(stateShipping));
 		scrollElement(driver.findElement(stateShipping));
-		
 		state.selectByVisibleText(stat);
-		scrollElement(driver.findElement(continueShipping));
-		driver.findElement(continueShipping).click();
+		
+		clickElement(continueShipping);
+		
+		return this;
 		
 	}
+	By shippingMethodButton=By.id("button-shipping-method");
 	@Step("Adding the comment")
-	public void addComment(String comm)
+	public CheckOutPage addComment(String comm)
 	{
-		wait.until(ExpectedConditions.visibilityOfElementLocated(comment));
-		driver.findElement(comment).sendKeys(comm);
-		driver.findElement(By.id("button-shipping-method")).click();
+		setText(comment, comm);
+		clickElement(shippingMethodButton);
+		return this;
 	}
 
 	By terms_conditions=By.xpath("//input[@name='agree']");
@@ -113,12 +117,13 @@ public class CheckOutPage extends PageBase{
 	By PaymentMethodContinue=By.id("button-payment-method");
 	
 	
-	public void proceedPaymentMethod()
+	public CheckOutPage proceedPaymentMethod()
 	{
-		wait.until(ExpectedConditions.visibilityOfElementLocated(cashOnDelivery));
-		driver.findElement(cashOnDelivery).click();
-		driver.findElement(terms_conditions).click();
-		driver.findElement(PaymentMethodContinue).click();
+		
+		clickElement(cashOnDelivery);
+		clickElement(terms_conditions);
+		clickElement(PaymentMethodContinue);
+		return this;
 		
 		
 	}
@@ -126,25 +131,15 @@ public class CheckOutPage extends PageBase{
 	By FlatShippingRate=By.xpath("//tfoot/tr[2]/td[2]");
 	public double getCheckOutSubTotal()
 	{
-		wait.until(ExpectedConditions.visibilityOfElementLocated(checkOutSubTotal));
-		String subtotalS=driver.findElement(checkOutSubTotal).getText();
-		subtotalS=subtotalS.replace('$', ' ');
-		subtotalS=subtotalS.replaceAll(",", "");
-		double subtotal=Double.parseDouble(subtotalS);
-		return subtotal;
+		
+		return convertTextPriceToDouble(getText(checkOutSubTotal));
 	}
 	
 	public double getExpectedCheckOutTotal()
 	{
-		wait.until(ExpectedConditions.visibilityOfElementLocated(checkOutSubTotal));
-		String subtotalS=driver.findElement(checkOutSubTotal).getText();
-		subtotalS=subtotalS.replace('$', ' ');
-		subtotalS=subtotalS.replaceAll(",", "");
-		double subtotal=Double.parseDouble(subtotalS);
-		String FlatShipping=driver.findElement(FlatShippingRate).getText();
-		FlatShipping=FlatShipping.replace('$', ' ');
-		FlatShipping=FlatShipping.replaceAll(",", "");
-		double FlatShippingNo=Double.parseDouble(FlatShipping);
+
+		double subtotal=convertTextPriceToDouble(getText(checkOutSubTotal));
+		double FlatShippingNo=convertTextPriceToDouble(getText(FlatShippingRate));
 		
 		
 		return FlatShippingNo+subtotal;
@@ -153,19 +148,20 @@ public class CheckOutPage extends PageBase{
 	By checkOutTotal=By.xpath("//tfoot/tr[3]/td[2]");
 	public double getCheckOutTotal()
 	{
-		String totalS=driver.findElement(checkOutTotal).getText();
-		totalS=totalS.replace('$', ' ');
-		totalS=totalS.replaceAll(",", "");
-		double total=Double.parseDouble(totalS);
-		
-		return total;
+		String totalS=getText(checkOutTotal);
+		return convertTextPriceToDouble(totalS);
 	}
 	
 	By confirmOrderButton=By.id("button-confirm");
 	
 	@Step("Confirming Order")
-	public void confirmOrder()
+	public CheckOutPage confirmOrder()
 	{
-		driver.findElement(confirmOrderButton).click();
+		clickElement(confirmOrderButton);
+		return this;
 	}
+	
+	
+	
+	
 }

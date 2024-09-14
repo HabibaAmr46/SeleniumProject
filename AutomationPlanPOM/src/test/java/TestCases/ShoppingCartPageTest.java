@@ -28,55 +28,36 @@ public class ShoppingCartPageTest extends TestBase {
 		super();
 	}
 	
-	@Test
-	public void testWriteToExcel() throws IOException
-	{
-		loginPage=new LoginPage(driver);
-		loginPage.OpenLoginPage();
-		loginPage.login("Bi@gmail.com","test123");
-		driver.findElement(By.xpath("//a[text()='Cameras']")).click();
-		driver.findElement(By.xpath("//h4/a[contains(text(),'Canon')]")).click();
-		ProductPage p=new ProductPage(driver);
-		p.writeDataToExcel();
-		driver.findElement(By.xpath("//ul[@class=\"nav navbar-nav\"]/li/a[text()='Cameras']")).click();
-		driver.findElement(By.xpath("//h4/a[contains(text(),'Nikon')]")).click();
-		p.writeDataToExcel();
-		System.out.println(productPage.rowNum);
-		
-		
-	}
 	
 	@Test
 	public void addToShoppingCart() throws InterruptedException, IOException
 	{
-		loginPage=new LoginPage(driver);
-		loginPage.OpenLoginPage();
-		loginPage.login("Bi@gmail.com","test123");
+		loginPage=new LoginPage(driver)
+			.OpenLoginPage()
+			.login("Bi@gmail.com","test123");
 		
-		homePage=new HomePage(driver);
-		homePage.ClickTablets();
-		homePage.ClickAddToCartTabletFunc();
+		homePage=new HomePage(driver)
+				.ClickTablets()
+				.ClickAddToCartTabletFunc();
 		
 		
-		wait.until(ExpectedConditions.visibilityOfElementLocated(homePage.successAddToCartMessage));
-		Assert.assertTrue(driver.findElement(homePage.successAddToCartMessage).isDisplayed());
-		shoppingCartPage=new ShoppingCartPage(driver);
+		
+		Assert.assertTrue(homePage.checkAddToCartMessageIsDisplayed());
+		
 		Thread.sleep(2000);
-		shoppingCartPage.OpenShoppingCart();
+		
+		shoppingCartPage=new ShoppingCartPage(driver)
+						.OpenShoppingCart();
 		
 		Assert.assertTrue(shoppingCartPage.validateIfProductExists(prop.getProperty("TabletName"),prop.getProperty("TabletPrice")));
-		homePage.ShowAllLaptops();
-		homePage.ViewLaptopDetails();
-		productPage= new ProductPage(driver);
+		homePage.ShowAllLaptops()
+		       .ViewLaptopDetails();
 		
+		productPage= new ProductPage(driver)
+				.AddProductToCart();
 		
-		Thread.sleep(2000);
-		productPage.writeDataToExcel();
+		Assert.assertTrue(homePage.checkAddToCartMessageIsDisplayed());
 		
-		productPage.AddProductToCart();
-		wait.until(ExpectedConditions.visibilityOfElementLocated(homePage.successAddToCartMessage));
-		Assert.assertTrue(driver.findElement(homePage.successAddToCartMessage).isDisplayed());
-		Thread.sleep(2000);
 		shoppingCartPage.OpenShoppingCart();
 		
 		Assert.assertTrue(shoppingCartPage.validateIfProductExists(prop.getProperty("LaptopName"), prop.getProperty("LaptopPrice"),prop.getProperty("LaptopDeliveryDate")));

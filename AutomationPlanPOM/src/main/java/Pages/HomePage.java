@@ -76,67 +76,81 @@ public class HomePage extends PageBase{
 	
 	public By confirmOrderResult=By.xpath("//div[@id='content']/h1");
 	
-	public void ClickViewCartSubMenu()
+	public HomePage ClickViewCartSubMenu()
 	{
 		
-		driver.findElement(viewCartSubMenu).click();
+		clickElement(viewCartSubMenu);
+		return this;
 	}
 	
 	@Step("Add \"Samsung Galaxy Tab 10.1\" to the cart ")
-	public void ClickAddToCartTabletFunc()
+	public HomePage ClickAddToCartTabletFunc()
 	{
-		driver.findElement(AddtoCartTablet).click();
+		clickElement(AddtoCartTablet);
+		return this;
 	}
-	public void clickSearchBarButton()
+	public HomePage clickSearchBarButton()
 	{
-		driver.findElement(searchBarButton).click();
+		clickElement(searchBarButton);
+		return this;
 	}
 	@Step("Show All DeskTops")
-	public void ShowAllDesktops()
+	public HomePage ShowAllDesktops()
 	{
-		driver.findElement(DesktopsLink).click();
-		driver.findElement(ShowAllDesktops).click();
+		
+		clickElement(DesktopsLink);
+		clickElement(ShowAllDesktops);
+		return this;
 	}
 	
 	@Step("Show All the Laptops")
-	public void ShowAllLaptops()
+	public HomePage ShowAllLaptops()
 	{
-		driver.findElement(Laptops_notebooks).click();
-		driver.findElement(ShowAllLaptops).click();
+		clickElement(Laptops_notebooks);
+		clickElement(ShowAllLaptops);
+		return this;
 	}
-	public void ShowAllMP3()
+	public HomePage ShowAllMP3()
 	{
-		driver.findElement(MP3_Players).click();
-		driver.findElement(showAllMP3).click();
+		clickElement(MP3_Players);
+		clickElement(showAllMP3);
+		return this;
 	}
 	
-	public void addIPODToCart()
+	public HomePage addIPODToCart()
 	{
-		driver.findElement(AddToCartIPODShuffle).click();
+		clickElement(AddToCartIPODShuffle);
+		return this;
 	}
 	@Step("View Laptop Details")
-	public void ViewLaptopDetails()
+	public HomePage ViewLaptopDetails()
 	{
-		driver.findElement(AddToCartLaptop).click();
+		clickElement(AddToCartLaptop);
+		return this;
 	}
 	
 	@Step("Click on Euro Currency")
-	public void ClickEuro()
+	public HomePage ClickEuro()
 	{
-		driver.findElement(currencyButton).click();
-		driver.findElement(EuroButton).click();
+		clickElement(currencyButton);
+		clickElement(EuroButton);
+		
+		return this;
 	}
 	
 	@Step("Click On All Tablets")
-	public void ClickTablets()
+	public HomePage ClickTablets()
 	{
-		driver.findElement(Tablets).click();
+		
+		clickElement(Tablets);
+		return this;
 	}
 	
 	
-	public void addToCartTablet()
-	{
-		driver.findElement(AddtoCartTablet).click();
+	public HomePage addToCartTablet()
+	{	
+		clickElement(AddtoCartTablet);
+		return this;
 	}
 	public boolean CheckIFProductsContainsCurrency(String currency)
 	{
@@ -167,10 +181,16 @@ public class HomePage extends PageBase{
 	}
 	
 	@Step("Search for product:{0}")
-	public void search(String product)
+	public HomePage search(String product)
 	{
-		driver.findElement(searchBar).sendKeys(product);
-		driver.findElement(searchBarButton).click();
+		setText(searchBar, product);
+		clickElement(searchBarButton);
+		return this;
+	}
+	
+	public boolean checkAddToCartMessageIsDisplayed()
+	{
+		return isDisplayed(successAddToCartMessage);
 	}
 	public boolean CheckIFProductExistsInSubMenu(String Product) throws InterruptedException
 	{
@@ -216,28 +236,41 @@ public class HomePage extends PageBase{
 	}
 	
 	@Step("Sorting the products from A-Z")
-	public void sortAsc()
+	public HomePage sortAsc()
 	{
 		Select sortOption=new Select(driver.findElement(sort));
 		sortOption.selectByIndex(1);
+		return this;
 	}
 	@Step("Sorting the products from Z-A")
-	public void sortDesc()
+	public HomePage sortDesc()
 	{
 		Select sortOption=new Select(driver.findElement(sort));
 		sortOption.selectByIndex(2);
+		return this;
 	}
 	
-	public void SelectAllPhones()
+	public boolean checkconfirmOrderResultMessageContainstext(String text)
 	{
-		driver.findElement(Phones).click();
+		return checkIfTextExistInLocator(confirmOrderResult, text);
+	}
+	
+	public boolean checkitemsSubMenuMessageContainstext(String text)
+	{
+		return checkIfTextExistInLocator(itemsSubMenuButton, text);
+	}
+	public HomePage SelectAllPhones()
+	{
+		clickElement(Phones);
+		return this;
 	}
 	
 	@Step("Logout")
-	public void Logout()
+	public HomePage Logout()
 	{
-		driver.findElement(accountLink).click();
-		driver.findElement(logOutLink).click();
+		clickElement(accountLink);
+		clickElement(logOutLink);
+		return this;
 	}
 
 }

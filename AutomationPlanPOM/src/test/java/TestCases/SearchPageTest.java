@@ -28,14 +28,15 @@ public class SearchPageTest extends TestBase{
 	@Test
 	public void searchInSubCategories()
 	{
-		loginPage=new LoginPage(driver);
-		loginPage.OpenLoginPage();
-		loginPage.login("Bi@gmail.com","test123");
+		loginPage=new LoginPage(driver).
+				OpenLoginPage().
+				login("Bi@gmail.com","test123");
 		
-		homePage=new HomePage(driver);
-		homePage.clickSearchBarButton();
-		searchPage=new SearchPage(driver);
-		searchPage.search();
+		homePage=new HomePage(driver)
+		        .clickSearchBarButton();
+		
+		searchPage=new SearchPage(driver)
+						.search();
 		Assert.assertTrue(searchPage.NoElementInShoppingCart().getText().contains(prop.getProperty("NoElementInShoppingCart")));
 		searchPage.search(prop.getProperty("searchItem"));
 		Assert.assertTrue(searchPage.getSearchResults().getText().contains(prop.getProperty("searchItemResult")));

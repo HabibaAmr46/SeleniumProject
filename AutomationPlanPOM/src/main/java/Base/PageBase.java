@@ -2,6 +2,7 @@ package Base;
 import java.time.Duration;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -35,9 +36,15 @@ public class PageBase {
 
 	public void clickElement(By locator)
 	{
+		
+		try {
 		commonWaits(locator);
 		wait.until(ExpectedConditions.elementToBeClickable(locator));
 		driver.findElement(locator).click();	
+		}catch(ElementClickInterceptedException e)
+		{
+			((JavascriptExecutor) driver).executeScript("arguments[0].click()", driver.findElement(locator));
+		}
 	}
 	
 	public void setText(By locator,String text)
@@ -58,7 +65,22 @@ public class PageBase {
 	}
 	private void commonWaits(By locator)
 	{
+		
+		wait.until(ExpectedConditions.presenceOfElementLocated(locator));
 		wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+		
 		((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", driver.findElement(locator));
+	}
+	
+	public boolean checkIfTextExistInLocator(By locator, String text)
+	{
+		wait.until(ExpectedConditions.textToBePresentInElementLocated(locator, text));
+		
+		return getText(locator).contains(text);
+		
+	}
+	public double convertTextPriceToDouble(String price)
+	{
+		return Double.parseDouble(price.replace('$', ' ').replaceAll(",", ""));
 	}
 }

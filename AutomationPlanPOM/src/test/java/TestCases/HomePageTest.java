@@ -32,14 +32,12 @@ public class HomePageTest extends TestBase{
 	@Test
 	public void ChangeCurrency()
 	{	
-		loginPage=new LoginPage(driver);
-		loginPage.OpenLoginPage();
-		loginPage.login("Bi@gmail.com","test123");
+		loginPage=new LoginPage(driver)
+				.OpenLoginPage()
+				.login("Bi@gmail.com","test123");
 
-		
-
-		homePage=new HomePage(driver);
-		homePage.ShowAllDesktops();
+		homePage=new HomePage(driver)
+				.ShowAllDesktops();
 		Allure.step("Ensure that all products contains $ as a currency");
 		Assert.assertTrue(homePage.CheckIFProductsContainsCurrency("$"));
 		homePage.ClickEuro();
@@ -68,12 +66,12 @@ public class HomePageTest extends TestBase{
 	@Test
 	public void sortByName()
 	{
-		loginPage=new LoginPage(driver);
-		loginPage.OpenLoginPage();
-		loginPage.login("Bi@gmail.com","test123");
+		loginPage=new LoginPage(driver)
+				.OpenLoginPage()
+				.login("Bi@gmail.com","test123");
 
-		homePage=new HomePage(driver);
-		homePage.SelectAllPhones();
+		homePage=new HomePage(driver)
+				.SelectAllPhones();
 		List<String> products=homePage.GetALLProductsNames();
 		Collections.sort(products,String.CASE_INSENSITIVE_ORDER);
 		homePage.sortAsc();
@@ -90,13 +88,14 @@ public class HomePageTest extends TestBase{
 	@Test
 	public void searchByName()
 	{
-		loginPage=new LoginPage(driver);
-		loginPage.OpenLoginPage();
-		loginPage.login("Bi@gmail.com","test123");
-
-		homePage=new HomePage(driver);
 		String searchItem=prop.getProperty("searchItemName");
-		homePage.search(searchItem);
+		
+		loginPage=new LoginPage(driver)
+				.OpenLoginPage()
+				.login("Bi@gmail.com","test123");
+		
+		homePage=new HomePage(driver)
+					.search(searchItem);
 		
 		Allure.step("Ensure that the product exists");
 		Assert.assertTrue(homePage.CheckIFProductExists(searchItem));

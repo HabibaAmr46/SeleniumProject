@@ -28,20 +28,24 @@ public class SearchPage extends PageBase {
 	By searchCategoriesCheckBox=By.xpath("//input[@name='sub_category']");
 	
 	
-	public void search()
+	public SearchPage search()
 	{
 		Select category=new Select(driver.findElement(searchCategories));
 		category.selectByVisibleText("Components");
-		driver.findElement(searchButton).click();
+		clickElement(searchButton);
+		return this;
 		
 	}
-	public void search(String product)
+	public SearchPage search(String product)
 	{
-		driver.findElement(searchKeyword).sendKeys(product);
+		setText(searchKeyword, product);
 		Select category=new Select(driver.findElement(searchCategories));
 		category.selectByVisibleText("Components");
-		driver.findElement(searchCategoriesCheckBox).click();
-		driver.findElement(searchButton).click();
+		clickElement(searchCategoriesCheckBox);
+		clickElement(searchButton);
+		
+		return this;
+		
 		
 	}
 	public WebElement NoElementInShoppingCart()
